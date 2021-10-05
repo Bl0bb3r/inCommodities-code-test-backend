@@ -1,5 +1,32 @@
 {
   "dependencies": {
     "axios": "^0.22.0"
-  }
+  },
+  "name": "incommodities-code-test-backend",
+  "version": "1.0.0",
+  "description": "code test in backend node.js",
+  "main": "main.js",
+  "devDependencies": {},
+  "scripts": {
+    "install": "npm install",
+    "start": "node main.js",
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bl0bb3r/inCommodities-code-test-backend.git"
+  },
+  "keywords": [
+    "node.js",
+    "backend",
+    "stocks",
+    "currencyExchange",
+    "assetEvaluation"
+  ],
+  "author": "Andreas Blaabjerg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bl0bb3r/inCommodities-code-test-backend/issues"
+  },
+  "homepage": "https://github.com/Bl0bb3r/inCommodities-code-test-backend#readme"
 }
