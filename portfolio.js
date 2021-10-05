@@ -7,7 +7,7 @@ const GetAssetPortfolioValue = () => {
     (a, stockAsset) => stockAsset.value + a,
     0
   );
-  stockValue;
+  //stockValue;
 
   const currencyValue = portfolioArray.reduce(
     (a, currencyAsset) => currencyAsset + a,
