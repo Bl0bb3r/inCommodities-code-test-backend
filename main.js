@@ -1,3 +1,4 @@
+//#region imports
 const {
   GetAssetPortfolioValue,
   portfolioArray,
@@ -5,29 +6,14 @@ const {
   currencyArray,
   GetAssetPortfolioConsolidate,
 } = require("./portfolio");
-const {
-  getRates,
-  getSymbols,
-  //convertCurrency,
-} = require("./services/fixer-service");
-const { convertCurrency } = require("./services/currency-converter-service");
 
-const stockAsset = (symbol, shares, price, currency) => {
-  return {
-    symbol,
-    shares,
-    price,
-    currency,
-    value: shares * price,
-  };
-};
+const { getSymbols } = require("./services/fixer-service");
+const { getRate, getCurrencyConversion } = require("./common");
 
-const currencyAsset = (amount, currency) => {
-  return {
-    amount,
-    currency,
-  };
-};
+const { currencyAsset } = require("./models/currencyAsset.model");
+const { stockAsset } = require("./models/stockAsset.model");
+
+//#endregion imports
 
 const testRates = async () => {
   const data = await getRate("EUR");
@@ -47,7 +33,13 @@ const testConversion = async () => {
   console.log("Currency conversion running");
 };
 
-const runTest = async () => {
+const testPortfolioEvaluation = async () => {
+  const data = await GetAssetPortfolioValue("EUR");
+  console.log(data);
+  console.log("Portfolio Value running");
+};
+
+const runAllTests = async () => {
   testRates();
   testSymbols();
   testConversion();
@@ -55,20 +47,12 @@ const runTest = async () => {
 
 const areEqual = (a, b) => Math.abs(a - b) < 0.0001;
 
-const getRate = async (fromCurrency) => {
-  const data = await getRates(fromCurrency);
-  return { data };
-};
-
-const getCurrencyConversion = async (fromCurrency, toCurrency) => {
-  const data = await convertCurrency(fromCurrency, toCurrency);
-  return { data };
-};
-
 stockArray.push(stockAsset("ABC", 200, 4, "EUR"));
 stockArray.push(stockAsset("DDW", 100, 10, "USD"));
+stockArray.push(stockAsset("EFG", 80, 8, "GBP"));
 currencyArray.push(currencyAsset(1000, "EUR"));
 currencyArray.push(currencyAsset(1000, "USD"));
+currencyArray.push(currencyAsset(1, "BTC"));
 
 // if (!areEqual(GetAssetPortfolioValue(), 1800))
 //   console.log(
@@ -77,6 +61,8 @@ currencyArray.push(currencyAsset(1000, "USD"));
 //     GetAssetPortfolioValue()
 //   );
 
+testPortfolioEvaluation();
+
 console.log("Done");
-console.log(portfolioArray);
-//runTest();
+//console.log(portfolioArray);
+//runAllTests();
