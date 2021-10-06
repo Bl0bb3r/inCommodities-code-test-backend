@@ -25,8 +25,9 @@ module.exports = {
     );
     console.log(response);
     const key = Object.keys(response.data)[0];
-    const value = response.data[key];
+    const { value } = response.data[key];
 
-    return { value };
+    return { rate: value };
+    // return { value };
   },
 };

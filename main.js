@@ -33,7 +33,38 @@ const testConversion = async () => {
   console.log("Currency conversion running");
 };
 
-const testPortfolioEvaluation = async () => {
+// Sparring from Filip made me realize some flaws that kept me from getting the right values
+// this snippet was partly sent from him and then reworked by me, so the right value is returned.
+const testPartFilipSnip = async () => {
+  const stockArray1 = [
+    { currency: "EUR", value: 1 },
+    { currency: "EUR", value: 10 },
+    { currency: "USD", value: 100 },
+  ];
+  let convRate;
+  let val = 0;
+  let valueInEUR = 0;
+
+  stockArray1.forEach((stockAsset1) => {
+    console.log("val is " + val);
+    if (stockAsset1.currency === "EUR") {
+      console.log("stockAsset1.value is " + stockAsset1.value);
+      val += stockAsset1.value;
+
+      console.log("val before returning is " + val);
+      return val;
+    }
+    valueInEUR += val;
+  });
+  console.log("valueInEUR is " + valueInEUR);
+
+  convRate = getCurrencyConversion("EUR", "USD");
+  const EURInCurrency = valueInEUR * convRate;
+
+  console.log("EURInCurrency is here " + EURInCurrency);
+};
+
+const testFullPortfolioEvaluation = async () => {
   const data = await GetAssetPortfolioValue("EUR");
   console.log(data);
   console.log("Portfolio Value running");
@@ -42,6 +73,7 @@ const testPortfolioEvaluation = async () => {
 const runAllTests = async () => {
   testRates();
   testSymbols();
+  testPartFilipSnip();
   testConversion();
 };
 
@@ -61,7 +93,8 @@ currencyArray.push(currencyAsset(1, "BTC"));
 //     GetAssetPortfolioValue()
 //   );
 
-testPortfolioEvaluation();
+//testPartFilipSnip();
+testFullPortfolioEvaluation();
 
 console.log("Done");
 //console.log(portfolioArray);
